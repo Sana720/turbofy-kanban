@@ -1,6 +1,7 @@
-import tailwindcssPlugin from '@tailwindcss/postcss';
-import autoprefixerPlugin from 'autoprefixer';
-
-export default {
-  plugins: [tailwindcssPlugin, autoprefixerPlugin],
-};
+// Next.js requires a simple object format for postcss config
+module.exports = {
+  plugins: {
+    '@tailwindcss/postcss': {},
+    'autoprefixer': {}
+  }
+}
