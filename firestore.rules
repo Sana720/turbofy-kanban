@@ -1,0 +1,88 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // ============================================
+    // HELPER FUNCTIONS
+    // ============================================
+    
+    // Check if user exists and is active
+    function isActiveUser(userId) {
+      return exists(/databases/$(database)/documents/users/$(userId)) &&
+        get(/databases/$(database)/documents/users/$(userId)).data.isActive == true;
+    }
+    
+    // Get user role
+    function getUserRole(userId) {
+      return get(/databases/$(database)/documents/users/$(userId)).data.role;
+    }
+    
+    // Check if user is admin
+    function isAdmin(userId) {
+      return isActiveUser(userId) && getUserRole(userId) == 'admin';
+    }
+    
+
+    
+    // ============================================
+    // USERS COLLECTION
+    // ============================================
+    
+    match /users/{userId} {
+      // Users can always read and write their own profile
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+      
+      // Admins can read and update any user profile
+      allow  create, read, update: if request.auth != null && isAdmin(request.auth.uid);
+      
+
+      
+      // Prevent non-admins from changing roles
+      allow update: if request.auth != null && 
+        request.auth.uid == userId &&
+        // Role can only be changed by admins
+        (!request.resource.data.diff(resource.data).affectedKeys().hasAny(['role']) ||
+         isAdmin(request.auth.uid));
+      
+      // Prevent deletion unless admin
+      allow delete: if request.auth != null && isAdmin(request.auth.uid);
+    }
+    
+
+    
+
+    
+    // ============================================
+    // TASKS COLLECTION (NO TEAMS)
+    // ============================================
+    match /tasks/{taskId} {
+      // Task creators can always read and write their tasks
+      allow read, write: if request.auth != null && request.auth.uid == resource.data.createdBy;
+      // Assigned users can read and update tasks assigned to them
+      allow read: if request.auth != null && resource.data.assignedTo != null && request.auth.uid == resource.data.assignedTo;
+      // Any authenticated user can update status, comments, order, and updatedAt (for Kanban drag/drop)
+      allow update: if request.auth != null && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status', 'comments', 'order', 'updatedAt']);
+      // Users can create personal tasks (no team logic)
+      allow create: if request.auth != null && request.auth.uid == request.resource.data.createdBy;
+      // Task creators and admins can delete tasks
+      allow delete: if request.auth != null && (request.auth.uid == resource.data.createdBy || isAdmin(request.auth.uid));
+      // Admins can read/write any task
+      allow read, write: if request.auth != null && isAdmin(request.auth.uid);
+    }
+    
+    // ============================================
+    // ADMIN-ONLY COLLECTIONS (if needed in future)
+    // ============================================
+    
+    // Example: System settings, analytics, etc.
+    match /system/{document=**} {
+      allow read, write: if request.auth != null && isAdmin(request.auth.uid);
+    }
+    
+    // Example: Audit logs
+    match /audit_logs/{document=**} {
+      allow read: if request.auth != null && isAdmin(request.auth.uid);
+      allow write: if false; // Only server-side writes
+    }
+  }
+}
