@@ -1,6 +1,12 @@
 {
   "name": "turbofy-task-manager",
-  "engines": {
-    "node": "16.x"
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@vercel/next"
+    }
+  ],
+  "env": {
+    "NEXT_RUNTIME_NODE_VERSION": "16.x"
   }
 }
