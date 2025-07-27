@@ -1,7 +1,9 @@
-/* Tailwind Directives */
-@import 'tailwindcss/base';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
+/* Base styles */
+@import 'tailwindcss/base.css';
+/* Component styles */
+@import 'tailwindcss/components.css';
+/* Utility styles */
+@import 'tailwindcss/utilities.css';
 
 /* --- Modern Professional Theme with Dark Mode --- */
 body {
