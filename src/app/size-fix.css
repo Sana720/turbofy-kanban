@@ -1,0 +1,33 @@
+/* Force consistent sizing and prevent unwanted scaling */
+html {
+  font-size: 16px !important; /* Force base font size */
+  -webkit-text-size-adjust: 100%; /* Prevent iOS text size adjust */
+}
+
+body {
+  font-size: 1rem !important; /* Force consistent body text size */
+}
+
+/* Scale down specific elements that may appear too large */
+h1, .h1 {
+  font-size: 1.5rem !important;
+}
+
+h2, .h2 {
+  font-size: 1.25rem !important;
+}
+
+button, .button, select, input {
+  font-size: 0.875rem !important;
+}
+
+/* Fix potential scaling issues in the Kanban components */
+.kanban-column, .task-card {
+  transform: scale(0.95);
+}
+
+@media (max-width: 768px) {
+  html {
+    font-size: 14px !important;
+  }
+}
