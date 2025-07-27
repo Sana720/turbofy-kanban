@@ -1,0 +1,6 @@
+{
+  "name": "turbofy-task-manager",
+  "engines": {
+    "node": "16.x"
+  }
+}
