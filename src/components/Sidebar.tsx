@@ -189,20 +189,22 @@ export default function Sidebar({ isOpen, onClose, isAdmin, onAdminNavigate, onM
                   ${activeMenuItem === item.id 
                     ? isDarkMode
                       ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg shadow-blue-500/25'
-                      : 'bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-lg shadow-blue-500/25'
+                      : 'bg-blue-100 text-blue-900 border-2 border-blue-300 shadow-md'
                     : isDarkMode
                       ? 'bg-gray-800 text-gray-300 hover:bg-gray-700 hover:text-white border border-gray-700'
-                      : 'bg-white text-gray-700 hover:bg-gray-50 hover:text-gray-900 border border-gray-200 shadow-sm'
+                      : 'bg-gray-50 text-gray-700 hover:bg-blue-50 hover:text-blue-800 border border-gray-300 shadow-sm'
                   }
                 `}
               >
                 <div className={`
                   flex items-center justify-center w-8 h-8 rounded-md mr-3 transition-all duration-300
                   ${activeMenuItem === item.id 
-                    ? 'bg-white/20 text-white' 
+                    ? isDarkMode
+                      ? 'bg-white/20 text-white' 
+                      : 'bg-yellow-400 text-blue-900 border border-yellow-500 shadow-sm'
                     : isDarkMode
                       ? 'bg-gray-700 text-gray-400 group-hover:bg-gray-600 group-hover:text-white'
-                      : 'bg-gray-100 text-gray-500 group-hover:bg-gray-200 group-hover:text-gray-700'
+                      : 'bg-gray-100 text-gray-500 group-hover:bg-blue-200 group-hover:text-blue-700'
                   }
                 `}>
                   {item.icon}
@@ -210,11 +212,15 @@ export default function Sidebar({ isOpen, onClose, isAdmin, onAdminNavigate, onM
                 <div className="flex-1 text-left">
                   <span className="text-sm font-semibold">{item.label}</span>
                   {activeMenuItem === item.id && (
-                    <div className="w-full h-0.5 bg-white/30 rounded-full mt-1"></div>
+                    <div className={`w-full h-0.5 rounded-full mt-1 ${
+                      isDarkMode ? 'bg-white/60' : 'bg-blue-500'
+                    }`}></div>
                   )}
                 </div>
                 {activeMenuItem === item.id && (
-                  <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
+                  <div className={`w-1.5 h-1.5 rounded-full animate-pulse ${
+                    isDarkMode ? 'bg-white' : 'bg-blue-500'
+                  }`}></div>
                 )}
               </button>
             ))}
@@ -223,7 +229,7 @@ export default function Sidebar({ isOpen, onClose, isAdmin, onAdminNavigate, onM
             <button
               onClick={logout}
               className={`
-                group w-full flex items-center p-4 rounded-xl transition-all duration-300 transform hover:scale-105 mt-6
+                group w-full flex items-center p-2 rounded-lg transition-all duration-300 mt-4
                 ${isDarkMode
                   ? 'bg-red-900/50 text-red-400 hover:bg-red-900 hover:text-red-300 border border-red-800'
                   : 'bg-red-50 text-red-600 hover:bg-red-100 hover:text-red-700 border border-red-200'
@@ -231,13 +237,13 @@ export default function Sidebar({ isOpen, onClose, isAdmin, onAdminNavigate, onM
               `}
             >
               <div className={`
-                flex items-center justify-center w-10 h-10 rounded-lg mr-4 transition-all duration-300
+                flex items-center justify-center w-8 h-8 rounded-md mr-3 transition-all duration-300
                 ${isDarkMode
                   ? 'bg-red-800 text-red-400 group-hover:bg-red-700 group-hover:text-red-300'
                   : 'bg-red-100 text-red-500 group-hover:bg-red-200 group-hover:text-red-600'
                 }
               `}>
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
                 </svg>
               </div>

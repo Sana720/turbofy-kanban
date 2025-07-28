@@ -212,27 +212,27 @@ export default function UserAnalyticsDashboard({ tasks, currentUserId }: UserAna
         </div>
       </div>
 
-      {/* Charts Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      {/* Charts Grid - All 3 in one row */}
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
         {/* Task Status Distribution */}
-        <div className={`rounded-xl p-6 transition-all duration-300 ${
+        <div className={`rounded-xl p-4 transition-all duration-300 ${
           isDarkMode 
             ? 'bg-gradient-to-br from-gray-800 to-gray-900 border border-gray-700' 
             : 'bg-gradient-to-br from-white to-gray-50 border border-gray-200'
         }`}>
-          <h3 className={`text-lg font-semibold mb-4 transition-colors duration-300 ${
+          <h3 className={`text-sm font-semibold mb-3 transition-colors duration-300 ${
             isDarkMode ? 'text-white' : 'text-gray-900'
           }`}>Task Status Distribution</h3>
           {statusData.length > 0 ? (
-            <ResponsiveContainer width="100%" height={300}>
+            <ResponsiveContainer width="100%" height={200}>
               <PieChart>
                 <Pie
                   data={statusData}
                   cx="50%"
                   cy="50%"
-                  innerRadius={60}
-                  outerRadius={100}
-                  paddingAngle={5}
+                  innerRadius={40}
+                  outerRadius={80}
+                  paddingAngle={3}
                   dataKey="value"
                 >
                   {statusData.map((entry, index) => (
@@ -240,12 +240,11 @@ export default function UserAnalyticsDashboard({ tasks, currentUserId }: UserAna
                   ))}
                 </Pie>
                 <Tooltip content={<CustomTooltip />} />
-                <Legend />
               </PieChart>
             </ResponsiveContainer>
           ) : (
-            <div className="flex items-center justify-center h-64">
-              <p className={`text-gray-500 ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+            <div className="flex items-center justify-center h-48">
+              <p className={`text-gray-500 text-sm ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>
                 No tasks to display
               </p>
             </div>
@@ -253,103 +252,109 @@ export default function UserAnalyticsDashboard({ tasks, currentUserId }: UserAna
         </div>
 
         {/* Priority Distribution */}
-        <div className={`rounded-xl p-6 transition-all duration-300 ${
+        <div className={`rounded-xl p-4 transition-all duration-300 ${
           isDarkMode 
             ? 'bg-gradient-to-br from-gray-800 to-gray-900 border border-gray-700' 
             : 'bg-gradient-to-br from-white to-gray-50 border border-gray-200'
         }`}>
-          <h3 className={`text-lg font-semibold mb-4 transition-colors duration-300 ${
+          <h3 className={`text-sm font-semibold mb-3 transition-colors duration-300 ${
             isDarkMode ? 'text-white' : 'text-gray-900'
           }`}>Priority Distribution</h3>
           {priorityData.some(item => item.value > 0) ? (
-            <ResponsiveContainer width="100%" height={300}>
-              <RadialBarChart cx="50%" cy="50%" innerRadius="20%" outerRadius="90%" data={priorityData}>
-                <RadialBar dataKey="value" cornerRadius={10} fill="#8884d8" />
+            <ResponsiveContainer width="100%" height={200}>
+              <RadialBarChart cx="50%" cy="50%" innerRadius="20%" outerRadius="80%" data={priorityData}>
+                <RadialBar dataKey="value" cornerRadius={5} fill="#8884d8" />
                 <Tooltip content={<CustomTooltip />} />
-                <Legend />
               </RadialBarChart>
             </ResponsiveContainer>
           ) : (
-            <div className="flex items-center justify-center h-64">
-              <p className={`text-gray-500 ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+            <div className="flex items-center justify-center h-48">
+              <p className={`text-gray-500 text-sm ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>
                 No tasks to display
               </p>
             </div>
           )}
         </div>
-      </div>
 
-      {/* Weekly Progress */}
-      <div className={`rounded-xl p-6 transition-all duration-300 ${
-        isDarkMode 
-          ? 'bg-gradient-to-br from-gray-800 to-gray-900 border border-gray-700' 
-          : 'bg-gradient-to-br from-white to-gray-50 border border-gray-200'
-      }`}>
-        <h3 className={`text-lg font-semibold mb-4 transition-colors duration-300 ${
-          isDarkMode ? 'text-white' : 'text-gray-900'
-        }`}>Weekly Progress (Tasks Completed)</h3>
-        <ResponsiveContainer width="100%" height={300}>
-          <AreaChart data={weeklyData}>
-            <CartesianGrid strokeDasharray="3 3" stroke={isDarkMode ? '#374151' : '#e5e7eb'} />
-            <XAxis 
-              dataKey="day" 
-              stroke={isDarkMode ? '#9ca3af' : '#6b7280'}
-              fontSize={12}
-            />
-            <YAxis 
-              stroke={isDarkMode ? '#9ca3af' : '#6b7280'}
-              fontSize={12}
-            />
-            <Tooltip content={<CustomTooltip />} />
-            <Area 
-              type="monotone" 
-              dataKey="completed" 
-              stroke="#3b82f6" 
-              fill="#3b82f6" 
-              fillOpacity={0.3}
-              strokeWidth={2}
-            />
-          </AreaChart>
-        </ResponsiveContainer>
-      </div>
-
-      {/* Task Urgency */}
-      {(taskStats.overdue > 0 || taskStats.dueSoon > 0) && (
-        <div className={`rounded-xl p-6 transition-all duration-300 ${
+        {/* Weekly Progress */}
+        <div className={`rounded-xl p-4 transition-all duration-300 md:col-span-2 xl:col-span-1 ${
           isDarkMode 
-            ? 'bg-gradient-to-br from-red-900/20 to-orange-900/20 border border-red-700/50' 
-            : 'bg-gradient-to-br from-red-50 to-orange-50 border border-red-200'
+            ? 'bg-gradient-to-br from-gray-800 to-gray-900 border border-gray-700' 
+            : 'bg-gradient-to-br from-white to-gray-50 border border-gray-200'
         }`}>
-          <h3 className={`text-lg font-semibold mb-4 transition-colors duration-300 ${
+          <h3 className={`text-sm font-semibold mb-3 transition-colors duration-300 ${
             isDarkMode ? 'text-white' : 'text-gray-900'
-          }`}>⚠️ Task Urgency Alert</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {taskStats.overdue > 0 && (
-              <div className={`p-4 rounded-lg ${
-                isDarkMode 
-                  ? 'bg-red-900/30 border border-red-700' 
-                  : 'bg-red-100 border border-red-300'
-              }`}>
-                <p className="text-red-600 font-semibold">Overdue Tasks</p>
-                <p className="text-2xl font-bold text-red-700">{taskStats.overdue}</p>
-                <p className={`text-sm ${isDarkMode ? 'text-red-300' : 'text-red-600'}`}>
-                  Need immediate attention
-                </p>
-              </div>
-            )}
-            {taskStats.dueSoon > 0 && (
-              <div className={`p-4 rounded-lg ${
-                isDarkMode 
-                  ? 'bg-orange-900/30 border border-orange-700' 
-                  : 'bg-orange-100 border border-orange-300'
-              }`}>
-                <p className="text-orange-600 font-semibold">Due Soon</p>
-                <p className="text-2xl font-bold text-orange-700">{taskStats.dueSoon}</p>
-                <p className={`text-sm ${isDarkMode ? 'text-orange-300' : 'text-orange-600'}`}>
-                  Due within 24 hours
-                </p>
-              </div>
-            )}
+          }`}>Weekly Progress</h3>
+          <ResponsiveContainer width="100%" height={200}>
+            <AreaChart data={weeklyData}>
+              <CartesianGrid strokeDasharray="3 3" stroke={isDarkMode ? '#374151' : '#e5e7eb'} />
+              <XAxis 
+                dataKey="day" 
+                stroke={isDarkMode ? '#9ca3af' : '#6b7280'}
+                fontSize={10}
+              />
+              <YAxis 
+                stroke={isDarkMode ? '#9ca3af' : '#6b7280'}
+                fontSize={10}
+              />
+              <Tooltip content={<CustomTooltip />} />
+              <Area 
+                type="monotone" 
+                dataKey="completed" 
+                stroke="#3b82f6" 
+                fill="#3b82f6" 
+                fillOpacity={0.3}
+                strokeWidth={2}
+              />
+            </AreaChart>
+          </ResponsiveContainer>
+        </div>
+      </div>
+
+      {/* Task Urgency - Slim and Sleek */}
+      {(taskStats.overdue > 0 || taskStats.dueSoon > 0) && (
+        <div className={`rounded-lg p-4 transition-all duration-300 ${
+          isDarkMode 
+            ? 'bg-gradient-to-r from-red-900/10 to-orange-900/10 border border-red-700/30' 
+            : 'bg-gradient-to-r from-red-50 to-orange-50 border border-red-200/50'
+        }`}>
+          <div className="flex items-center justify-between mb-3">
+            <h3 className={`text-sm font-semibold transition-colors duration-300 ${
+              isDarkMode ? 'text-white' : 'text-gray-900'
+            }`}>⚠️ Task Urgency Alert</h3>
+            <div className="flex items-center space-x-2">
+              {taskStats.overdue > 0 && (
+                <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+                  isDarkMode 
+                    ? 'bg-red-900/50 text-red-300 border border-red-700/50' 
+                    : 'bg-red-100 text-red-700 border border-red-200'
+                }`}>
+                  {taskStats.overdue} Overdue
+                </span>
+              )}
+              {taskStats.dueSoon > 0 && (
+                <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+                  isDarkMode 
+                    ? 'bg-orange-900/50 text-orange-300 border border-orange-700/50' 
+                    : 'bg-orange-100 text-orange-700 border border-orange-200'
+                }`}>
+                  {taskStats.dueSoon} Due Soon
+                </span>
+              )}
+            </div>
+          </div>
+          <div className="flex items-center justify-between text-xs">
+            <p className={`${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+              {taskStats.overdue > 0 && taskStats.dueSoon > 0 
+                ? `${taskStats.overdue + taskStats.dueSoon} tasks need your attention`
+                : taskStats.overdue > 0 
+                  ? `${taskStats.overdue} task${taskStats.overdue > 1 ? 's' : ''} overdue - immediate action required`
+                  : `${taskStats.dueSoon} task${taskStats.dueSoon > 1 ? 's' : ''} due within 24 hours`
+              }
+            </p>
+            <div className={`w-2 h-2 rounded-full animate-pulse ${
+              taskStats.overdue > 0 ? 'bg-red-500' : 'bg-orange-500'
+            }`}></div>
           </div>
         </div>
       )}
