@@ -626,35 +626,31 @@ export default function UserCrud() {
                     </div>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-3">
                       <button
                         onClick={() => handleToggleStatus(user)}
                         disabled={togglingUsers.has(user.id)}
-                        style={{
-                          backgroundColor: togglingUsers.has(user.id) 
-                            ? '#9CA3AF' 
-                            : user.isActive 
-                              ? '#16A34A' 
-                              : '#DC2626'
-                        }}
-                        className={`relative inline-flex h-6 w-11 items-center rounded-full transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 ${
-                          togglingUsers.has(user.id) 
-                            ? 'opacity-50 cursor-not-allowed' 
+                        className={`relative inline-flex h-6 w-12 items-center rounded-full transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 ${
+                          togglingUsers.has(user.id)
+                            ? 'opacity-50 cursor-not-allowed bg-gray-500'
                             : user.isActive
-                              ? 'hover:bg-green-700 focus:ring-green-300 cursor-pointer'
-                              : 'hover:bg-red-700 focus:ring-red-300 cursor-pointer'
+                              ? isDarkMode ? 'bg-green-600' : 'bg-green-400'
+                              : isDarkMode ? 'bg-red-700' : 'bg-red-400'
                         }`}
+                        style={{ borderRadius: '999px', padding: 0, border: 'none' }}
                       >
                         <span
-                          className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform duration-300 shadow-lg ${
-                            user.isActive ? 'translate-x-6' : 'translate-x-1'
+                          className={`absolute left-1 top-1/2 transform -translate-y-1/2 h-4 w-4 rounded-full transition-transform duration-300 bg-white shadow-md ${
+                            user.isActive
+                              ? 'translate-x-6'
+                              : 'translate-x-0'
                           }`}
                         />
                       </button>
-                      <span className={`text-xs font-medium transition-colors duration-300 ${
-                        user.isActive 
-                          ? (isDarkMode ? 'text-green-400' : 'text-green-600')
-                          : (isDarkMode ? 'text-red-400' : 'text-red-600')
+                      <span className={`text-xs font-medium transition-colors duration-300 select-none ${
+                        user.isActive
+                          ? isDarkMode ? 'text-green-400' : 'text-green-600'
+                          : isDarkMode ? 'text-red-400' : 'text-red-600'
                       }`}>
                         {user.isActive ? 'Active' : 'Inactive'}
                       </span>
