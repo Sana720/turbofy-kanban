@@ -102,11 +102,11 @@ export default function TaskForm({ currentUserId, teamId, users, onTaskCreated, 
   };
 
   return (
-    <div className={`rounded-lg shadow-lg p-6 max-w-md w-full transition-colors duration-300 ${
+    <div className={`rounded-md shadow-lg p-4 max-w-sm w-full transition-colors duration-300 ${
       isDarkMode ? 'bg-gray-800' : 'bg-white'
     }`}>
-      <div className="flex justify-between items-center mb-4">
-        <h2 className={`text-xl font-semibold transition-colors duration-300 ${
+      <div className="flex justify-between items-center mb-3">
+        <h2 className={`text-lg font-semibold transition-colors duration-300 ${
           isDarkMode ? 'text-white' : 'text-gray-900'
         }`}>Create New Task</h2>
         {onClose && (
@@ -116,16 +116,16 @@ export default function TaskForm({ currentUserId, teamId, users, onTaskCreated, 
               isDarkMode ? 'text-gray-400 hover:text-gray-200' : 'text-gray-400 hover:text-gray-600'
             }`}
           >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
             </svg>
           </button>
         )}
       </div>
 
-      <form onSubmit={handleSubmit} className="space-y-4">
+      <form onSubmit={handleSubmit} className="space-y-3">
         <div>
-          <label htmlFor="title" className={`block text-sm font-medium mb-1 transition-colors duration-300 ${
+          <label htmlFor="title" className={`block text-xs font-medium mb-1 transition-colors duration-300 ${
             isDarkMode ? 'text-gray-300' : 'text-gray-700'
           }`}>
             Title *

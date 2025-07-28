@@ -372,7 +372,7 @@ export default function KanbanBoard({ tasks, currentUserId, onTaskUpdate }: Kanb
         onDragOver={handleDragOver}
         onDragEnd={handleDragEnd}
       >
-        <div className="flex gap-4 overflow-x-auto overflow-y-hidden px-4 pb-4" style={{ height: 'calc(100vh - 160px)' }}>
+        <div className="flex gap-2 overflow-x-auto overflow-y-hidden px-2 pb-2" style={{ height: 'calc(100vh - 140px)' }}>
           {columns.map((column) => (
             <KanbanColumn
               key={column.id}

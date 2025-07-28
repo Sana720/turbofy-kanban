@@ -151,7 +151,7 @@ export default function Sidebar({ isOpen, onClose, isAdmin, onAdminNavigate, onM
       
       {/* Sidebar */}
       <aside className={`
-        fixed top-0 left-0 z-40 w-72 h-screen transition-transform lg:relative lg:translate-x-0
+        fixed top-0 left-0 z-40 w-60 h-screen transition-transform lg:relative lg:translate-x-0
         ${isOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'} 
         sm:translate-x-0
       `}>
@@ -161,16 +161,16 @@ export default function Sidebar({ isOpen, onClose, isAdmin, onAdminNavigate, onM
             : 'bg-gradient-to-b from-slate-50 to-white border-gray-200'
         } border-r shadow-lg`}>
           {/* Header */}
-          <div className={`flex items-center justify-center h-16 px-6 border-b transition-colors duration-300 ${
+          <div className={`flex items-center justify-center h-12 px-4 border-b transition-colors duration-300 ${
             isDarkMode ? 'border-gray-700' : 'border-gray-200'
           }`}>
-            <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center shadow-lg">
-                <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="flex items-center space-x-2">
+              <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center shadow-lg">
+                <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
                 </svg>
               </div>
-              <span className={`text-xl font-bold transition-colors duration-300 hidden sm:block ${
+              <span className={`text-lg font-bold transition-colors duration-300 hidden sm:block ${
                 isDarkMode ? 'text-white' : 'text-gray-900'
               }`}>
                 Turbofy
@@ -179,13 +179,13 @@ export default function Sidebar({ isOpen, onClose, isAdmin, onAdminNavigate, onM
           </div>
 
           {/* Navigation */}
-          <nav className="flex-1 px-4 py-6 space-y-3 overflow-y-auto">
+          <nav className="flex-1 px-3 py-4 space-y-2 overflow-y-auto">
             {allMenuItems.map((item) => (
               <button
                 key={item.id}
                 onClick={item.action}
                 className={`
-                  group w-full flex items-center p-4 rounded-xl transition-all duration-300 transform hover:scale-105
+                  group w-full flex items-center p-2 rounded-lg transition-all duration-300
                   ${activeMenuItem === item.id 
                     ? isDarkMode
                       ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg shadow-blue-500/25'
@@ -197,7 +197,7 @@ export default function Sidebar({ isOpen, onClose, isAdmin, onAdminNavigate, onM
                 `}
               >
                 <div className={`
-                  flex items-center justify-center w-10 h-10 rounded-lg mr-4 transition-all duration-300
+                  flex items-center justify-center w-8 h-8 rounded-md mr-3 transition-all duration-300
                   ${activeMenuItem === item.id 
                     ? 'bg-white/20 text-white' 
                     : isDarkMode
@@ -246,19 +246,19 @@ export default function Sidebar({ isOpen, onClose, isAdmin, onAdminNavigate, onM
           </nav>
 
           {/* User Profile Section */}
-          <div className={`border-t p-4 transition-colors duration-300 ${
+          <div className={`border-t p-3 transition-colors duration-300 ${
             isDarkMode ? 'border-gray-700' : 'border-gray-200'
           }`}>
-            <div className={`flex items-center space-x-3 p-3 rounded-xl transition-all duration-300 ${
+            <div className={`flex items-center space-x-2 p-2 rounded-lg transition-all duration-300 ${
               isDarkMode ? 'bg-gray-800' : 'bg-gray-50'
             }`}>
-              <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center shadow-lg">
-                <span className="text-white font-bold text-lg">
+              <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center shadow-lg">
+                <span className="text-white font-bold text-sm">
                   {currentUser.displayName ? currentUser.displayName[0].toUpperCase() : currentUser.email[0].toUpperCase()}
                 </span>
               </div>
               <div className="flex-1 min-w-0">
-                <p className={`text-sm font-semibold truncate transition-colors duration-300 ${
+                <p className={`text-xs font-semibold truncate transition-colors duration-300 ${
                   isDarkMode ? 'text-white' : 'text-gray-900'
                 }`}>
                   {currentUser.displayName || 'User'}
@@ -268,14 +268,6 @@ export default function Sidebar({ isOpen, onClose, isAdmin, onAdminNavigate, onM
                 }`}>
                   {currentUser.email}
                 </p>
-                <div className={`flex items-center mt-1`}>
-                  <div className="w-2 h-2 bg-green-500 rounded-full mr-2 animate-pulse"></div>
-                  <span className={`text-xs font-medium ${
-                    isDarkMode ? 'text-green-400' : 'text-green-600'
-                  }`}>
-                    Online
-                  </span>
-                </div>
               </div>
             </div>
           </div>

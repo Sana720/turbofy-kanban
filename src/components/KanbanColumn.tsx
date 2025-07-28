@@ -50,21 +50,21 @@ export default function KanbanColumn({ id, title, tasks, currentUserId }: Kanban
     : columnColors[id as keyof typeof columnColors]?.light || columnColors.todo.light;
 
   return (
-    <div className="flex flex-col flex-1 min-w-72 max-w-96" style={{ maxHeight: 'calc(100vh - 200px)' }}>
+    <div className="flex flex-col flex-1 min-w-64 max-w-80" style={{ maxHeight: 'calc(100vh - 180px)' }}>
       {/* Column Header */}
       <div className={`
-        rounded-t-lg border-2 border-b-0 p-3 transition-all duration-300
+        rounded-t-md border border-b-0 p-2 transition-all duration-300
         ${columnColorClass}
         ${isOver ? 'ring-2 ring-blue-400 ring-opacity-50' : ''}
       `}>
         <div className="flex justify-between items-center">
-          <div className="flex items-center space-x-2">
-            <span className="text-lg">{columnIcons[id as keyof typeof columnIcons] || '📋'}</span>
-            <h2 className={`text-lg font-semibold transition-colors duration-300 ${
+          <div className="flex items-center space-x-1.5">
+            <span className="text-sm">{columnIcons[id as keyof typeof columnIcons] || '📋'}</span>
+            <h2 className={`text-sm font-semibold transition-colors duration-300 ${
               isDarkMode ? 'text-white' : 'text-gray-800'
             }`}>{title}</h2>
           </div>
-          <span className={`px-3 py-1 rounded-full text-sm font-medium border transition-all duration-300 ${
+          <span className={`px-2 py-0.5 rounded-full text-xs font-medium border transition-all duration-300 ${
             isDarkMode 
               ? 'bg-gray-700 text-gray-200 border-gray-600 shadow-sm' 
               : 'bg-white text-gray-600 border-gray-300 shadow-sm'
@@ -78,24 +78,24 @@ export default function KanbanColumn({ id, title, tasks, currentUserId }: Kanban
       <div
         ref={setNodeRef}
         className={`
-          flex-1 border-2 border-t-0 rounded-b-lg p-3 overflow-y-auto transition-all duration-300
+          flex-1 border border-t-0 rounded-b-md p-2 overflow-y-auto transition-all duration-300
           ${columnColorClass}
           ${isOver ? `ring-2 ring-blue-400 ring-opacity-50 ${
             isDarkMode ? 'bg-blue-900/50' : 'bg-blue-50'
           }` : ''}
         `}
-        style={{ maxHeight: 'calc(100vh - 320px)', minHeight: '200px' }}
+        style={{ maxHeight: 'calc(100vh - 280px)', minHeight: '150px' }}
       >
         <SortableContext
           items={tasks.map(task => task.id)}
           strategy={verticalListSortingStrategy}
         >
           {tasks.length === 0 ? (
-            <div className={`flex items-center justify-center h-32 text-sm transition-colors duration-300 ${
+            <div className={`flex items-center justify-center h-24 text-xs transition-colors duration-300 ${
               isDarkMode ? 'text-gray-400' : 'text-gray-400'
             }`}>
               <div className="text-center">
-                <svg className="w-8 h-8 mx-auto mb-2 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-6 h-6 mx-auto mb-1 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                 </svg>
                 <p>No tasks</p>
